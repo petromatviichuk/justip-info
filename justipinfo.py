@@ -4,7 +4,7 @@ import socket
 
 app = Flask(__name__, static_url_path='/static')
 
-geoipcity="/usr/share/GeoIP/GeoIPCity.dat"
+geoipcity="/usr/share/GeoIP/GeoLiteCity.dat"
 geoipasnum="/usr/share/GeoIP/GeoIPASNum.dat"
 
 #Get information about IP address from GeoIP database
