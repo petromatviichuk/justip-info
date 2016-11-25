@@ -1,4 +1,4 @@
-Ifrom flask import Flask, request, url_for
+from flask import Flask, request, url_for
 import GeoIP
 import socket
 
