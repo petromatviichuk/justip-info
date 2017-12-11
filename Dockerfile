@@ -12,5 +12,4 @@ COPY static /opt/static
 COPY justipinfo.py /opt
 
 EXPOSE 5000
-
 ENTRYPOINT ["python", "/opt/justipinfo.py"]
