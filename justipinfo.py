@@ -4,8 +4,8 @@ import socket
 
 app = Flask(__name__, static_url_path='/static')
 
-geoipcity="/usr/share/GeoIP/GeoLiteCity.dat"
-geoipasnum="/usr/share/GeoIP/GeoIPASNum.dat"
+geoipcity="GeoLiteCity.dat"
+geoipasnum="GeoIPASNum.dat"
 
 #Get information about IP address from GeoIP database
 def ipdata(ipaddr):
@@ -22,11 +22,12 @@ def ipdata(ipaddr):
 
 @app.route('/')
 def iponly():
-    return request.headers['X-REAL-IP'] + '\n', {'Content-Type': 'text/plain; charset=utf-8'}
+    return request.remote_addr + '\n', {'Content-Type': 'text/plain; charset=utf-8'}
 
 @app.route('/full')
 def ipfull():
-     return ipdata(request.headers['X-REAL-IP'])
+ ip = request.remote_addr
+ return ipdata(ip)
 
 #Validate IP address and return information
 @app.route('/lookup/<ipaddr>')
@@ -52,4 +53,4 @@ def icon():
  return app.send_static_file('favicon.ico')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
