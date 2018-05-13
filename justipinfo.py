@@ -22,12 +22,19 @@ def ipdata(ipaddr):
 
 @app.route('/')
 def iponly():
-    return request.remote_addr + '\n', {'Content-Type': 'text/plain; charset=utf-8'}
+ if request.headers.getlist("X-Forwarded-For"):
+   ip = request.headers.getlist("X-Forwarded-For")[0]
+ else:
+   ip = request.remote_addr
+ return ip + '\n', {'Content-Type': 'text/plain; charset=utf-8'}
 
 @app.route('/full')
 def ipfull():
- ip = request.remote_addr
- return ipdata(ip)
+ if request.headers.getlist("X-Forwarded-For"):
+   ip = request.headers.getlist("X-Forwarded-For")[0]
+ else:
+   ip = request.remote_addr
+ return ipdata(ip) 
 
 #Validate IP address and return information
 @app.route('/lookup/<ipaddr>')
